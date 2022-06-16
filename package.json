@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.2",
+    "axios": "^0.27.2",
     "daisyui": "^2.15.4",
     "mosha-vue-toastify": "^1.0.23",
     "pinia": "^2.0.14",
     "pinia-persists": "^1.2.0",
+    "qs": "^6.10.5",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-pwa": "^0.12.0",
     "vue": "^3.2.25",
