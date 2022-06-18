@@ -24,5 +24,4 @@
     on: false,
     disabled: false
   }])
-  //title.value =
 </script>

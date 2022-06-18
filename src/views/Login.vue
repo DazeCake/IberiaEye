@@ -7,7 +7,7 @@
       <div class="space-y-4 text-info font-bold">
         <div>
           <label class="block mb-2">账号</label>
-          <input type="text" v-model="account" placeholder="master" class="qbz-input mb-2">
+          <input type="text" v-model="account" placeholder="admin" class="qbz-input mb-2">
         </div>
         <div>
           <div class="flex justify-between mb-2">
@@ -18,7 +18,7 @@
       </div>
       <div class="space-y-2">
         <button @click="login" class="btn px-8 py-3 btn-block btn-info">登录</button>
-        <p class="px-6 text-sm text-center text-gray-400">Powered by skadiD</p>
+        <p class="px-6 text-sm text-center text-gray-400">Powered by @skadiD</p>
       </div>
     </div>
   </div>
@@ -36,18 +36,15 @@
 
   const user = userStore();
   const login = () => {
-    Login({
-      account: account.value,
-      password: password.value
-    }).then((resp) => {
+    Login(account.value, password.value).then((resp) => {
       if (resp.code === 1) {
         createToast('欢迎回来，正在跳转', {
           showIcon: true,
           type: 'success',
           transition: 'bounce',
         })
-        user.login(resp['extra']['token'])
-        router.push(route.query.redirect ? route.query.redirect : '/Dashboard')
+        //user.login(resp['extra']['token'])
+        //router.push(route.query.redirect ? route.query.redirect : '/')
         return
       }
       createToast('错误的登录信息', {

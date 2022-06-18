@@ -20,6 +20,7 @@
             class="flex items-center p-3 mt-2 duration-200 border-l-4 rounded-r-xl"
             :class="$route.name === k.id ? 'nav-active' : 'nav-inactive'"
             :to="'/' + k.id"
+            @click="isShow = false"
         >
           <span class="mx-4">{{k.name}}</span>
         </router-link>
@@ -34,7 +35,7 @@
   const menu = ref([])
   menu.value = [{
     name: '控制台',
-    id: 'Dashboard',
+    id: '',
     icon: 'IconAccountBox'
   },{
     name: '设备管理',
@@ -51,6 +52,10 @@
   }, {
     name: '任务管理',
     id: 'Task',
+    icon: 'Topic'
+  }, {
+    name: '基础配置',
+    id: 'Config',
     icon: 'Topic'
   }]
 </script>

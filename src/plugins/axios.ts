@@ -1,6 +1,6 @@
 import axios from 'axios'
-import qs from 'qs'
 import { createToast } from 'mosha-vue-toastify';
+
 const service = axios.create({
     baseURL: import.meta.env.VITE_API_URL
 })
@@ -15,7 +15,7 @@ service.interceptors.response.use(response => {
 })
 function post(url: string, params: object) {
     return new Promise((resolve) => {
-        service.post(url, qs.stringify(params)).then(res => {
+        service.post(url, params).then(res => {
             resolve(res)
         })
     })
