@@ -13,18 +13,18 @@
 </template>
 <div class=""></div>
 <script setup>
-  import {ref} from "vue";
-  const props = defineProps({
-    data: {
-      type: Array
-    },
-    next: {
-      type: Function
-    }
-  })
-  const pre = ref(null)
-  const first = (reset) => {
-    props.next(reset)
-    pre.value.scrollTop = 0
-  }
+import { ref } from 'vue'
+const props = defineProps({
+  data: {
+    type: Array,
+  },
+  next: {
+    type: Function,
+  },
+})
+const pre = ref(null)
+const first = (reset) => {
+  props.next(reset)
+  pre.value.scrollTop = 0
+}
 </script>
