@@ -37,17 +37,17 @@
   const user = userStore();
   const login = () => {
     Login(account.value, password.value).then((resp) => {
-      if (resp.code === 1) {
+      if (resp.code === 200) {
         createToast('欢迎回来，正在跳转', {
           showIcon: true,
           type: 'success',
           transition: 'bounce',
         })
-        //user.login(resp['extra']['token'])
-        //router.push(route.query.redirect ? route.query.redirect : '/')
+        user.login(resp['data']['token'])
+        router.push(route.query.redirect ? route.query.redirect : '/')
         return
       }
-      createToast('错误的登录信息', {
+      createToast('错误的登录信息：' + resp['msg'], {
         showIcon: true,
         type: 'info',
         transition: 'bounce',

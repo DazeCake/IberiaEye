@@ -6,7 +6,7 @@
 <script setup>
   import { load } from './plugins/theme'
   import { isLarge } from './plugins/common'
-  import {getCurrentInstance, onMounted, watch} from "vue";
+  import {getCurrentInstance, onMounted} from "vue";
   import {userStore} from "./store/user";
   import {storeToRefs} from "pinia/dist/pinia";
   import {configStore} from "./store/config";
@@ -29,6 +29,10 @@
   } else {
     const instance = getCurrentInstance()
     instance.appContext.config.globalProperties.$axios.defaults.baseURL = `http://${config.value.url}/`
+
+    if (user.value.isLogin) {
+      instance.appContext.config.globalProperties.$axios.defaults.headers['Authorization'] = "Bearer " + user.value.token
+    }
   }
   onMounted(() => {
     isLarge.value = document.documentElement.clientWidth >= 1024
