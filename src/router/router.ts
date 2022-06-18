@@ -22,11 +22,11 @@ export const router = createRouter({
         path: "/Login",
         name: "Login",
         component: () => import('../views/Login.vue'),
-        meta: { title: '账号登录' }
+        meta: { title: '账号登录', noAuth: true }
     }]
 })
 router.beforeEach((to, from, next) => {
-    const udata = JSON.parse(localStorage.getItem('dd_user') || '{}')
+    const udata = JSON.parse(localStorage.getItem('aegir_user') || '{}')
     if (to.matched.some(record => !record.meta.noAuth) && !udata?.['user']?.['isLogin']) {
         createToast('请先登录', {
             showIcon: true,
