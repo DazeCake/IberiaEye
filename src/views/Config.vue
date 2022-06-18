@@ -3,7 +3,7 @@
   <div class="flex flex-col text-info text-lg mt-2">
     <div class="w-full lg:w-1/2">
       <label class="block ml-1">后端地址 / IP</label>
-      <input type="text" v-model="url" placeholder="ark.com" class="qbz-input mb-2">
+      <input type="text" v-model="url" placeholder="https://ark.com" class="qbz-input mb-2">
     </div>
   </div>
   <button class="btn btn-info text-base-100 w-full lg:w-1/2 mt-2" @click="save">保存配置</button>
