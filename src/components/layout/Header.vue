@@ -23,9 +23,12 @@
       </ul>
     </div>
     <div class="relative h-8">
-      <button class="btn btn-circle overflow-hidden border-none bg-white btn-sm" @click="dropdownOpen = !dropdownOpen">
-        <img alt="head" src="https://q1.qlogo.cn/g?b=qq&nk=10003653&s=640"/>
-      </button>
+      <div class="flex items-center">
+        <div class="badge badge-lg badge-info mr-2">后端通讯正常</div>
+        <button class="btn btn-circle overflow-hidden border-none bg-white btn-sm" @click="dropdownOpen = !dropdownOpen">
+          <img alt="head" src="https://q1.qlogo.cn/g?b=qq&nk=10003653&s=640"/>
+        </button>
+      </div>
       <div
           v-show="dropdownOpen"
           @click="dropdownOpen = false"
@@ -43,8 +46,8 @@
         <div v-show="dropdownOpen" class="absolute right-0 z-10">
           <ul class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-40 shadow-xl rounded-md">
             <li>
-              <router-link to="/login" class="router-link-active router-link-exact-active h-10" aria-current="page">登录</router-link>
-              <router-link to="/login" @click="logout" class="router-link-active router-link-exact-active h-10" aria-current="page">安全退出</router-link>
+              <router-link to="/login" @click="dropdownOpen = false" class="router-link-active router-link-exact-active h-10" aria-current="page">登录</router-link>
+              <router-link to="/login" @click="dropdownOpen = false" class="router-link-active router-link-exact-active h-10" aria-current="page">安全退出</router-link>
             </li>
           </ul>
         </div>

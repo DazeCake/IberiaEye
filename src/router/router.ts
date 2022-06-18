@@ -4,8 +4,8 @@ import {createToast} from "mosha-vue-toastify";
 export const router = createRouter({
     history: createWebHistory(),
     routes: [{
-        path: "/dashboard",
-        name: "Dashboard",
+        path: "/",
+        name: "",
         component: () => import('../views/Home.vue'),
         meta: { title: '控制台' }
     }, {
@@ -13,6 +13,16 @@ export const router = createRouter({
         name: "Device",
         component: () => import('../views/Devices.vue'),
         meta: { title: '设备管理' }
+    }, {
+        path: "/Config",
+        name: "Config",
+        component: () => import('../views/Config.vue'),
+        meta: { title: '基础配置' }
+    }, {
+        path: "/Login",
+        name: "Login",
+        component: () => import('../views/Login.vue'),
+        meta: { title: '账号登录' }
     }]
 })
 router.beforeEach((to, from, next) => {
