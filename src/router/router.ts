@@ -17,7 +17,7 @@ export const router = createRouter({
         path: "/Config",
         name: "Config",
         component: () => import('../views/Config.vue'),
-        meta: { title: '基础配置' }
+        meta: { title: '基础配置', noAuth: true }
     }, {
         path: "/Login",
         name: "Login",
