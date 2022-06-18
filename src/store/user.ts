@@ -9,8 +9,8 @@ export const userStore = defineStore('user', {
     }),
     actions: {
         login(token: string){
-            this.user.token = token
             this.user.isLogin = true
+            this.user.token = token
         },
         logout(){
             this.$reset()

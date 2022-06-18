@@ -1,12 +1,23 @@
 import axios from 'axios'
 import { createToast } from 'mosha-vue-toastify';
+import {userStore} from "../store/user";
+import {useRouter} from "vue-router";
 
-const service = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
-})
+const service = axios.create()
 service.interceptors.response.use(response => {
     return response.data
 }, err => {
+    if (err.response.status == 401) {
+        createToast('登录过期，请重新登录', {
+            showIcon: true,
+            type: 'danger',
+            transition: 'bounce',
+        })
+        userStore().logout()
+        const router = useRouter()
+        router.push({path: '/login'})
+        return
+    }
     createToast('网络故障，请稍后重试', {
         showIcon: true,
         type: 'danger',
@@ -34,3 +45,4 @@ export const Login = (username: string, password: string) =>
 export const HeartBeat = () => post('heartBeat', {status: 0, deviceToken: 'string'})
 export const GetLogs = (current: number, size: number) => get(`showLog?current=${current}&size=${size}`)
 export const GetTasks = (token: string) => get(`getTask?deviceToken=${token}`)
+export const GetLoadDevices = () => get('showLoadedDevice')

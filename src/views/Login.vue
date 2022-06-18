@@ -25,16 +25,17 @@
 </template>
 <script setup>
   import {Login} from "../plugins/axios";
-  import { ref } from "vue";
+  import {getCurrentInstance, ref} from "vue";
   import { createToast } from 'mosha-vue-toastify';
   import {useRoute, useRouter} from "vue-router";
   import {userStore} from "../store/user";
+  import {storeToRefs} from "pinia/dist/pinia";
   const account = ref('')
   const password = ref('')
   const router = useRouter()
   const route = useRoute()
-
   const user = userStore();
+  const instance = getCurrentInstance();
   const login = () => {
     Login(account.value, password.value).then((resp) => {
       if (resp.code === 200) {
@@ -44,6 +45,7 @@
           transition: 'bounce',
         })
         user.login(resp['data']['token'])
+        instance.appContext.config.globalProperties.$axios.defaults.headers['Authorization'] = "Bearer " + resp['data']['token']
         router.push(route.query.redirect ? route.query.redirect : '/')
         return
       }
