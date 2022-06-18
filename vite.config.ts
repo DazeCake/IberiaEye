@@ -6,8 +6,9 @@ import viteCompression from 'vite-plugin-compression'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),VitePWA({
-      registerType: 'autoUpdate'
+    vue(),
+    VitePWA({
+      registerType: 'autoUpdate',
     }),
     viteCompression({
       verbose: true,
@@ -27,7 +28,7 @@ export default defineConfig({
         chunkFileNames: 'static/js/[name]-[hash].js',
         entryFileNames: 'static/js/[name]-[hash].js',
         assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
-      }
-    }
-  }
+      },
+    },
+  },
 })
