@@ -12,6 +12,7 @@ service.interceptors.response.use(response => {
         type: 'danger',
         transition: 'bounce',
     })
+    console.log(err)
 })
 function post(url: string, params: object) {
     return new Promise((resolve) => {
@@ -30,3 +31,6 @@ function get(url: string) {
 export default service
 export const Login = (username: string, password: string) =>
     post(`adminLogin?username=${username}&password=${password}`, {})
+export const HeartBeat = () => post('heartBeat', {status: 0, deviceToken: 'string'})
+export const GetLogs = (current: number, size: number) => get(`showLog?current=${current}&size=${size}`)
+export const GetTasks = (token: string) => get(`getTask?deviceToken=${token}`)
