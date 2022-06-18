@@ -33,3 +33,12 @@ td, th {
 .qbz-input {
   @apply input input-bordered w-full focus:outline-none focus:border-info
 }
+
+pre {
+  background-color: #333;
+  color: #fff;
+  font-family: Monaco,Menlo,Ubuntu Mono,Consolas,source-code-pro,monospace;
+  padding: .75em 1em;
+  overflow: auto;
+  white-space: nowrap;
+}
