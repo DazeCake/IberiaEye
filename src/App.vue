@@ -28,7 +28,7 @@
     router.push('/Config')
   } else {
     const instance = getCurrentInstance()
-    instance.appContext.config.globalProperties.$axios.defaults.baseURL = `http://${config.value.url}/`
+    instance.appContext.config.globalProperties.$axios.defaults.baseURL = `${config.value.url}/`
 
     if (user.value.isLogin) {
       instance.appContext.config.globalProperties.$axios.defaults.headers['Authorization'] = "Bearer " + user.value.token
