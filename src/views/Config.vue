@@ -23,7 +23,7 @@ url.value = config.value.url
 const save = () => {
   if (url.value) {
     _config.setUrl(url.value)
-    instance.appContext.config.globalProperties.$axios.defaults.url = url.value
+    instance.appContext.config.globalProperties.$axios.defaults.baseURL = url.value
     createToast('保存成功', {
       showIcon: true,
       type: 'success',
