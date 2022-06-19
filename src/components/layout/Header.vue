@@ -1,77 +1,58 @@
 <template>
-  <header class="flex items-center justify-between px-6 py-3 bg-white border-b-4 border-indigo-600">
-    <div class="flex items-center lg:hidden">
-      <button class="text-gray-500" @click="isShow = true">
-        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <div class="navbar bg-base-100 shadow-lg" :class="{ 'rounded-lg': isLarge }">
+    <div class="navbar-start">
+      <div class="btn btn-circle bg-base-100 text-gray-600 border-0 hover:bg-gray-100" @click="isShow = true">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+        </svg>
+      </div>
+    </div>
+    <div class="navbar-center text-info font-bold">
+      <div class="text-lg breadcrumbs lg:inline hidden">
+        <ul>
+          <li><a>审判庭</a></li>
+          <li>
+            <a>{{ $route.meta['title'] }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="lg:hidden text-xl">
+        {{ $route.meta['title'] }}
+      </div>
+    </div>
+    <div class="navbar-end">
+      <button class="btn btn-ghost btn-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path
-            d="M4 6H20M4 12H20M4 18H11"
-            stroke="currentColor"
-            stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
       </button>
-    </div>
-    <div class="lg:hidden">
-      <span class="text-info mx-2 text-xl font-bold">{{ $route.meta['title'] || '审判庭云控管理' }}</span>
-    </div>
-    <div class="text-sm breadcrumbs lg:inline hidden">
-      <ul>
-        <li><a>审判庭</a></li>
-        <li>
-          <a>{{ $route.meta['title'] }}</a>
-        </li>
-      </ul>
-    </div>
-    <div class="relative h-8">
-      <div class="flex items-center">
-        <div class="badge badge-lg badge-info mr-2">后端通讯正常</div>
-        <button
-          class="btn btn-circle overflow-hidden border-none bg-white btn-sm"
-          @click="dropdownOpen = !dropdownOpen"
-        >
-          <img alt="head" src="https://q1.qlogo.cn/g?b=qq&nk=10003653&s=640" />
-        </button>
-      </div>
-      <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full"></div>
-      <transition
-        enter-active-class="transition duration-50 ease-out transform"
-        enter-from-class="scale-95 opacity-0"
-        enter-to-class="scale-100 opacity-100"
-        leave-active-class="transition duration-50 ease-in transform"
-        leave-from-class="scale-100 opacity-100"
-        leave-to-class="scale-95 opacity-0"
-      >
-        <div v-show="dropdownOpen" class="absolute right-0 z-10">
-          <ul class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-40 shadow-xl rounded-md">
-            <li>
-              <router-link
-                to="/login"
-                @click="dropdownOpen = false"
-                class="router-link-active router-link-exact-active h-10"
-                aria-current="page"
-                >登录</router-link
-              >
-              <router-link
-                to="/login"
-                @click="dropdownOpen = false"
-                class="router-link-active router-link-exact-active h-10"
-                aria-current="page"
-                >安全退出</router-link
-              >
-            </li>
-          </ul>
+      <button class="btn btn-ghost btn-circle">
+        <div class="indicator">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+            />
+          </svg>
+          <span class="badge badge-xs badge-primary indicator-item"></span>
         </div>
-      </transition>
+      </button>
     </div>
-  </header>
+  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 const dropdownOpen = ref(false)
 import { isShow } from './showNav'
+import { isLarge } from '../../plugins/common'
 import { userStore } from '../../store/user'
 import { createToast } from 'mosha-vue-toastify'
 const user = userStore()

@@ -6,6 +6,7 @@
   <div class="grid gap-2 my-4" :class="isLarge ? 'grid-cols-4' : 'grid-cols-1'">
     <Ctgy v-for="row of devices" :data="row" />
   </div>
+  <button class="btn btn-block btn-info" @click="fresh">刷新（{{ times }} 秒后自动刷新）</button>
 </template>
 
 <script setup>
@@ -15,7 +16,20 @@ import { isLarge } from '../plugins/common'
 import { ref } from 'vue'
 import { GetLoadDevices } from '../plugins/axios'
 const devices = ref([])
-GetLoadDevices().then((res) => {
-  devices.value = res.data
-})
+const times = ref(5)
+
+const fresh = () => {
+  times.value = 5
+  GetLoadDevices().then((res) => {
+    devices.value = res.data
+  })
+}
+fresh()
+setInterval(() => {
+  if (times.value <= 0) {
+    fresh()
+  } else {
+    times.value--
+  }
+}, 1000)
 </script>

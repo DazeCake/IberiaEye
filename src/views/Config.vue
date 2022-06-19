@@ -10,17 +10,19 @@
 </template>
 <script setup>
 import HeadTitle from '../components/Card/HeadTitle.vue'
-import { ref } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
 import { configStore } from '../store/config'
 import { storeToRefs } from 'pinia/dist/pinia'
 import { createToast } from 'mosha-vue-toastify'
 const url = ref('')
 const _config = configStore()
 const { config } = storeToRefs(_config)
+const instance = getCurrentInstance()
 url.value = config.value.url
 const save = () => {
   if (url.value) {
     _config.setUrl(url.value)
+    instance.appContext.config.globalProperties.$axios.defaults.url = url.value
     createToast('保存成功', {
       showIcon: true,
       type: 'success',
