@@ -7,6 +7,7 @@
     </div>
   </div>
   <button class="btn btn-info text-base-100 w-full lg:w-1/2 mt-2" @click="save">保存配置</button>
+
 </template>
 <script setup>
 import HeadTitle from '../components/Card/HeadTitle.vue'
