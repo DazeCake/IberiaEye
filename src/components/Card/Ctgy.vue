@@ -1,9 +1,9 @@
 <template>
-  <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <div class="bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
     <div class="p-5">
       <h5 class="mb-2 text-2xl font-bold text-white flex items-center justify-between">
         #{{ data['id'] + ' ' + data['deviceName'] }}
-        <div class="badge text-green-500 badge-outline badge-lg">{{ status(data['status']) }}</div>
+        <div class="badge badge-outline badge-lg" :class="_status(data['status'])">{{ status(data['status']) }}</div>
       </h5>
       <p class="mb-3 font-normal text-gray-300">
         <span class="text-orange-500">设备Token：</span><br />{{ data['deviceToken'] }}
@@ -31,6 +31,20 @@ const status = (tag) => {
       return '肉鸽'
     default:
       return '未知'
+  }
+}
+const _status = (tag) => {
+  switch (tag) {
+    case '0':
+      return 'text-red-600'
+    case '1':
+      return 'text-green-500'
+    case '1001':
+      return 'text-info'
+    case '1002':
+      return 'text-orange-500'
+    default:
+      return 'text-white'
   }
 }
 </script>

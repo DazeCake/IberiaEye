@@ -1,8 +1,9 @@
 <template>
-  <div class="divider text-xl text-info">运行日志</div>
+  <div class="divider text-xl text-info mt-0">运行日志</div>
   <div class="flex flex-wrap flex-row justify-between">
     <Console :data="logs" :next="next" />
   </div>
+
 </template>
 <script setup>
 import { ref } from 'vue'

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row justify-between">
     <HeadTitle title="设备管理" />
-    <button class="btn btn-info mx-2">新增设备 +</button>
+    <button class="btn btn-info ml-2">新增设备 +</button>
   </div>
   <div class="grid gap-2 my-4" :class="isLarge ? 'grid-cols-4' : 'grid-cols-1'">
     <Ctgy v-for="row of devices" :data="row" />
