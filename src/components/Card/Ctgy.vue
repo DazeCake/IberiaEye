@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <div class="rounded-lg border shadow-md bg-gray-800 border-gray-700">
     <div class="p-5">
       <h5 class="mb-2 text-2xl font-bold text-white flex items-center justify-between">
         #{{ data['id'] + ' ' + data['deviceName'] }}
