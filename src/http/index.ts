@@ -1,0 +1,43 @@
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
+
+const $http = axios.create({
+	baseURL: 'https://inquisition.dazecake.xyz:2000',
+	timeout: 2000,
+	headers: {
+		'Content-Type': 'application/json;charset=utf-8',
+	},
+})
+
+// 请求拦截器
+$http.interceptors.request.use(
+	config => {
+		const token = localStorage.getItem('token')
+		if (token && config.headers) {
+			config.headers.Authorization = `Bearer ${token}`
+		}
+		return config
+	}
+)
+
+// 响应拦截器
+$http.interceptors.response.use(
+	response => {
+		const code: number = response.data.code
+		if (code !== 200) {
+			//登陆失败
+			ElMessage.error(response.data.msg)
+			return Promise.reject(response.data)
+		} else {
+			//登陆成功
+			ElMessage.success(response.data.msg)
+			return response.data
+		}
+	},
+	error => {
+		console.log(error)
+		return Promise.reject(error)
+	}
+)
+
+export default $http
