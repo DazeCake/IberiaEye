@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
 const $http = axios.create({
-	baseURL: 'https://inquisition.dazecake.xyz:2000',
+	baseURL: 'http://192.168.3.90:2000',
 	timeout: 2000,
 	headers: {
 		'Content-Type': 'application/json;charset=utf-8',

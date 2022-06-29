@@ -11,6 +11,12 @@ interface logData {
 
 }
 
+interface searchLogData {
+    key: string;
+    current: number;
+    size: number;
+}
+
 export const adminLogin = (data: adminLoginData) => $http({
     url: '/adminLogin',
     method: 'post',
@@ -19,6 +25,12 @@ export const adminLogin = (data: adminLoginData) => $http({
 
 export const getLog = (data: logData) => $http({
     url: '/showLog',
+    method: 'get',
+    params: data
+})
+
+export const searchLog = (data: searchLogData) => $http({
+    url: '/searchLog',
     method: 'get',
     params: data
 })

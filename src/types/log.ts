@@ -16,4 +16,7 @@ export interface ListInter {
 
 export class InitData {
     list: ListInter[] = [];
+    key: string = "";
+    page_count: number = 10;
+    current_page: number = 1;
 }
