@@ -92,4 +92,8 @@ export default defineComponent({
     --el-table-tr-bg-color: var(--el-color-error-light-9);
   }
 }
+.el-pagination {
+  margin: 20px auto;
+  padding-left: 25%;
+}
 </style>

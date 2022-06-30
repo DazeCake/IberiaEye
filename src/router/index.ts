@@ -17,6 +17,14 @@ const routes: Array<RouteRecordRaw> = [
 					isShow: true,
 					title: "日志"
 				}
+			},
+			{
+				path: '/device',
+				component: () => import('../views/DeviceView.vue'),
+				meta: {
+					isShow: true,
+					title: "设备"
+				}
 			}
 		]
 	}

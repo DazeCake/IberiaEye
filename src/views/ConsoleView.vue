@@ -11,6 +11,7 @@
             default-active="1"
             text-color="#fff"
           >
+            <h2>菜单</h2>
             <el-menu-item v-for="i in list" :key="i.path" :index="i.path">
               <el-icon><icon-menu /></el-icon>
               <span>{{ i.meta.title }}</span>

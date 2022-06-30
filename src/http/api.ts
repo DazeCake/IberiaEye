@@ -17,6 +17,14 @@ interface searchLogData {
     size: number;
 }
 
+interface addDeviceData {
+    id: number;
+    deviceName: string;
+    deviceToken: string;
+    expireTime: string;
+    delete: number;
+}
+
 export const adminLogin = (data: adminLoginData) => $http({
     url: '/adminLogin',
     method: 'post',
@@ -33,4 +41,15 @@ export const searchLog = (data: searchLogData) => $http({
     url: '/searchLog',
     method: 'get',
     params: data
+})
+
+export const getDevice = () => $http({
+    url: '/showLoadedDevice',
+    method: 'get'
+})
+
+export const addDevice = (data: addDeviceData) => $http({
+    url: '/addDevice',
+    method: 'post',
+    data
 })
