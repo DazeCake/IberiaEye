@@ -60,7 +60,6 @@ export default defineComponent({
     const refresh = () => {
       getDevice().then((res) => {
         data.deviceList = res.data
-        console.log(res.data)
       })
     }
     onMounted(() => {

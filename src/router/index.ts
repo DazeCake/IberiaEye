@@ -25,6 +25,14 @@ const routes: Array<RouteRecordRaw> = [
 					isShow: true,
 					title: "设备"
 				}
+			},
+			{
+				path: '/account',
+				component: () => import('../views/AccountView.vue'),
+				meta: {
+					isShow: true,
+					title: "账号"
+				}
 			}
 		]
 	}
