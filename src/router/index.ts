@@ -33,7 +33,15 @@ const routes: Array<RouteRecordRaw> = [
 					isShow: true,
 					title: "账号"
 				}
-			}
+			},
+			{
+				path: '/task',
+				component: () => import('../views/TaskView.vue'),
+				meta: {
+					isShow: true,
+					title: "任务"
+				}
+			},
 		]
 	}
 ]

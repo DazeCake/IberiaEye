@@ -181,3 +181,24 @@ export const searchAccount = (data: searchAccountData) => $http({
     method: 'get',
     params: data
 })
+
+export const showLockTaskList = () => $http({
+    url: '/showLockTaskList',
+    method: 'get'
+})
+
+export const showFreezeTaskList = () => $http({
+    url: '/showFreezeTaskList',
+    method: 'get'
+})
+
+export const showFreeTaskList = () => $http({
+    url: '/showFreeTaskList',
+    method: 'get'
+})
+
+export const tempAddTask = (data: addAccountData) => $http({
+    url: '/tempAddTask',
+    method: 'post',
+    data
+})

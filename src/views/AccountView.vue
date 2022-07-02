@@ -1,5 +1,5 @@
 <template>
-  <div class="device-title">
+  <div class="account-title">
     <el-row :gutter="20">
       <el-col :span="10">日托账号管理</el-col>
       <el-col :span="10"></el-col>
@@ -130,10 +130,10 @@
             <el-form-item v-for="fightTask in accountList[getIndexByID(selectID)].config.daily.fight">
               <el-col :span="10"><el-input v-model="fightTask.level" /></el-col>
               <el-col :span="8"><el-input v-model="fightTask.num" /></el-col>
-              <el-col :span="6"><el-button @click.prevent="removeDomain(fightTask)">删除</el-button></el-col>
+              <el-col :span="6"><el-button @click.prevent="removeOption(fightTask)">删除</el-button></el-col>
             </el-form-item>
             <el-form-item>
-              <el-button @click="addDomain">新建</el-button>
+              <el-button @click="addOption">新建</el-button>
             </el-form-item>
           </el-form>
         </span>
@@ -202,7 +202,6 @@
 import { defineComponent, onMounted, toRefs, reactive, ref } from 'vue'
 import { InitData } from '../types/account'
 import { updateAccount, delAccount, addAccount, searchAccount } from '../http/api'
-import type { FormInstance } from 'element-plus'
 
 export default defineComponent({
   setup() {
@@ -274,7 +273,7 @@ export default defineComponent({
       level: string
     }
 
-    const removeDomain = (item: fightTask) => {
+    const removeOption = (item: fightTask) => {
       var newList: {
         num: number
         level: string
@@ -287,20 +286,11 @@ export default defineComponent({
       data.accountList[getIndexByID(data.selectID)].config.daily.fight = newList
     }
 
-    const addDomain = () => {
+    const addOption = () => {
       data.accountList[getIndexByID(data.selectID)].config.daily.fight.push({
         num: 0,
         level: '',
       })
-    }
-
-    const submitForm = (key: any) => {
-      console.log(key)
-    }
-
-    const resetForm = (formEl: FormInstance | undefined) => {
-      if (!formEl) return
-      formEl.resetFields()
     }
 
     const updateOldAccount = () => {
@@ -347,10 +337,8 @@ export default defineComponent({
       addNewAccount,
       delOldAccount,
       getAccountByID,
-      removeDomain,
-      addDomain,
-      submitForm,
-      resetForm,
+      removeOption,
+      addOption,
       getIndexByID,
       updateOldAccount,
       getDay,
