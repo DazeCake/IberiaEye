@@ -13,3 +13,15 @@ Vue3 + Vite + TypeScript + Element-Plus
 ## 配置
 
 修改`src\http\index.ts`中的`baseURL`
+
+## 测试与部署
+
+```shell
+# 测试
+npm install
+npm run dev
+
+# 部署
+npm install
+npm run build
+```
