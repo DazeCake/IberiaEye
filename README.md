@@ -1,6 +1,6 @@
 # IberiaEye 伊比利亚之眼
 
-明日方舟速通云控后端的前端
+明日方舟速通云控后端的前端开发分支 当前适配审判庭版本: `0.1.x`
 
 ## 实现
 
@@ -12,14 +12,18 @@ Vue3 + Vite + TypeScript + Element-Plus
 
 ## 配置
 
-修改`src\http\index.ts`中的`baseURL`
+修改`src\http\index.ts`中的`baseURL`，他应该形如`http://123.456.789.000:2000/`
 
 ## 测试与部署
 
 ```shell
+# 拉取
+git clone -b element-plus https://github.com/AegirTech/IberiaEye.git
+cd IberiaEye
+
 # 测试
 npm install
-npm run dev
+npm run dev # 懒得配置nginx的话直接这么运行也行
 
 # 部署
 npm install
