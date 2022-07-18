@@ -5,6 +5,11 @@ interface adminLoginData {
     password: string;
 }
 
+interface userLoginData {
+    username: string;
+    password: string;
+}
+
 interface logData {
     current: number;
     size: number;
@@ -13,6 +18,11 @@ interface logData {
 
 interface searchLogData {
     key: string;
+    current: number;
+    size: number;
+}
+
+interface searchMyLogData {
     current: number;
     size: number;
 }
@@ -27,6 +37,92 @@ interface addDeviceData {
 
 interface updateAccountData {
     id: number;
+    name: string;
+    account: string;
+    password: string;
+    server: number;
+    taskType: string;
+    config: {
+        daily: {
+            fight: {
+                level: string;
+                num: number;
+            }[],
+            sanity: {
+                drug: number;
+                stone: number;
+            },
+            mail: boolean;
+            offer: {
+                enable: boolean;
+                car: boolean;
+                star4: boolean;
+                star5: boolean;
+                star6: boolean;
+                other: boolean;
+            },
+            friend: boolean;
+            infrastructure: {
+                harvest: boolean;
+                shift: boolean;
+                acceleration: boolean;
+                communication: boolean;
+                deputy: boolean
+            },
+            credit: boolean;
+            task: boolean;
+            activity: boolean
+        },
+        rogue: {
+            operator: {
+                index: number;
+                num: number;
+                skill: number
+            },
+            level: number;
+            coin: number;
+            skip: {
+                coin: boolean;
+                beast: boolean;
+                daily: boolean;
+                sensitive: boolean;
+                illusion: boolean;
+                survive: boolean
+            }
+        }
+    };
+    active: {
+        monday: {
+            enable: boolean;
+            detail: string[];
+        },
+        tuesday: {
+            enable: boolean;
+            detail: string[];
+        },
+        wednesday: {
+            enable: boolean;
+            detail: string[];
+        },
+        thursday: {
+            enable: boolean;
+            detail: string[];
+        },
+        friday: {
+            enable: boolean;
+            detail: string[];
+        },
+        saturday: {
+            enable: boolean;
+            detail: string[];
+        },
+        sunday: {
+            enable: boolean;
+            detail: string[];
+        }
+    };
+    expireTime: string;
+    delete: number;
 }
 
 interface delAccountData {
@@ -134,6 +230,12 @@ export const adminLogin = (data: adminLoginData) => $http({
     params: data
 })
 
+export const userLogin = (data: userLoginData) => $http({
+    url: '/userLogin',
+    method: 'post',
+    params: data
+})
+
 export const getLog = (data: logData) => $http({
     url: '/showLog',
     method: 'get',
@@ -201,4 +303,34 @@ export const tempAddTask = (data: addAccountData) => $http({
     url: '/tempAddTask',
     method: 'post',
     data
+})
+
+export const useCDK = (cdk: string) => $http({
+    url: '/useCDK',
+    method: 'post',
+    params: { cdk }
+})
+
+export const updateMyAccount = (data: updateAccountData) => $http({
+    url: '/updateMyAccount',
+    method: 'post',
+    data: data
+})
+
+export const createUser = (cdk: string, data: addAccountData) => $http({
+    url: '/createUser',
+    method: 'post',
+    data: data,
+    params: { cdk }
+})
+
+export const showMyLog = (data: searchMyLogData) => $http({
+    url: '/showMyLog',
+    method: 'get',
+    params: data
+})
+
+export const showMyAccount = () => $http({
+    url: '/showMyAccount',
+    method: 'get'
 })

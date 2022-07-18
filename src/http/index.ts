@@ -35,7 +35,14 @@ $http.interceptors.response.use(
 		}
 	},
 	error => {
-		console.log(error)
+		const code: number = error.response.status
+		if (code === 401) {
+			ElMessage.error('登录已过期，请重新登录')
+			setTimeout(() => {
+				window.location.href = '/user_login'
+			}, 1000)
+			return Promise.reject(error)
+		}
 		return Promise.reject(error)
 	}
 )

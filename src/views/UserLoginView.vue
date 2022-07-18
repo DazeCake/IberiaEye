@@ -2,7 +2,7 @@
   <div>
     <div class="login-box">
       <h1>登陆</h1>
-      <el-form ref="loginFromRef" :model="loginFrom" status-icon :rules="rules" label-width="50px" class="loginFrom">
+      <el-form ref="loginFromRef" :model="loginFrom" status-icon label-width="50px" class="loginFrom">
         <el-form-item label="账号" prop="username">
           <el-input v-model="loginFrom.username" autocomplete="off" />
         </el-form-item>
@@ -21,7 +21,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { InitData } from '../types/login'
-import { adminLogin } from '../http/api'
+import { userLogin } from '../http/api'
 
 import { useRouter } from 'vue-router'
 
@@ -30,25 +30,14 @@ export default defineComponent({
     const data = reactive(new InitData())
     const router = useRouter()
 
-    const rules = {
-      username: [
-        { required: true, message: '请输入用户名', trigger: 'blur' },
-        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
-      ],
-      password: [
-        { required: true, message: '请输入密码', trigger: 'blur' },
-        { min: 6, max: 24, message: '长度在 6 到 24 个字符', trigger: 'blur' },
-      ],
-    }
-
     const login = () => {
       data.loginFromRef?.validate((valid) => {
         if (valid) {
           // console.log('验证通过')
-          adminLogin(data.loginFrom).then((res) => {
+          userLogin(data.loginFrom).then((res) => {
             console.log(res.data)
             localStorage.setItem('token', res.data.token)
-            router.push('/console')
+            router.push('/userConsole')
           })
         }
       })
@@ -60,7 +49,6 @@ export default defineComponent({
 
     return {
       ...toRefs(data),
-      rules,
       login,
       register,
     }
