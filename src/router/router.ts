@@ -7,26 +7,57 @@ export const router = createRouter({
     {
       path: '/',
       name: '',
-      component: () => import('../views/Home.vue'),
-      meta: { title: '控制台' },
+      component: () => import('../views/Landing.vue'),
+      meta: { title: '平台首页', noAuth: true },
     },
     {
-      path: '/device',
-      name: 'Device',
-      component: () => import('../views/Devices.vue'),
-      meta: { title: '设备管理' },
+      path: '/user',
+      component: () => import('../components/layout/User.vue'),
+      meta: { title: '用户平台', noAuth: true },
+      children: [
+        {
+          path: 'cdk',
+          component: () => import('../views/Master/CDK.vue'),
+          meta: { title: 'CDK管理' },
+        },
+        {
+          path: 'login',
+          component: () => import('../views/User/Login.vue'),
+          meta: { title: '用户登录', noAuth: true },
+        },
+        {
+          path: 'reg',
+          component: () => import('../views/User/Reg.vue'),
+          meta: { title: '用户注册', noAuth: true },
+        },
+      ],
     },
     {
-      path: '/Config',
-      name: 'Config',
-      component: () => import('../views/Config.vue'),
-      meta: { title: '基础配置', noAuth: true },
-    },
-    {
-      path: '/Login',
-      name: 'Login',
-      component: () => import('../views/Login.vue'),
-      meta: { title: '账号登录', noAuth: true },
+      path: '/master',
+      component: () => import('../components/layout/Master.vue'),
+      meta: { title: '后台中心', noAuth: true },
+      children: [
+        {
+          path: 'cdk',
+          component: () => import('../views/Master/CDK.vue'),
+          meta: { title: 'CDK管理' },
+        },
+        {
+          path: 'login',
+          component: () => import('../views/Master/Login.vue'),
+          meta: { title: '后台登录', noAuth: true },
+        },
+        {
+          path: 'home',
+          component: () => import('../views/Master/Home.vue'),
+          meta: { title: '数据统计' },
+        },
+        {
+          path: '/device',
+          component: () => import('../views/Master/Devices.vue'),
+          meta: { title: '设备管理' },
+        },
+      ],
     },
   ],
 })
@@ -39,7 +70,7 @@ router.beforeEach((to, from, next) => {
       transition: 'bounce',
     })
     next({
-      path: '/login',
+      path: '/user/login',
       query: { redirect: to.fullPath },
     })
   }

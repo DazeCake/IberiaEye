@@ -3,13 +3,12 @@
   <div class="flex flex-wrap flex-row justify-between">
     <Console :data="logs" :next="next" />
   </div>
-
 </template>
 <script setup>
 import { ref } from 'vue'
-import { GetLogs } from '../plugins/axios'
-import Console from '../components/Element/Console.vue'
-import {createToast} from "mosha-vue-toastify";
+import { GetLogs } from '../../plugins/axios'
+import Console from '../../components/Element/Console.vue'
+import { createToast } from 'mosha-vue-toastify'
 const page = ref(1)
 const logs = ref([])
 const getLogs = async () => {

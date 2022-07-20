@@ -4,12 +4,14 @@ export const userStore = defineStore('user', {
   state: () => ({
     user: {
       isLogin: false,
+      isAdmin: false,
       token: '',
     },
   }),
   actions: {
-    login(token: string) {
+    login(token: string, isAdmin: boolean) {
       this.user.isLogin = true
+      this.user.isAdmin = isAdmin
       this.user.token = token
     },
     logout() {

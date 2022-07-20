@@ -3,12 +3,12 @@
     <div class="overflow-x-auto">
       <table class="min-w-full text-xs">
         <colgroup>
-          <col>
-          <col>
-          <col>
-          <col>
-          <col>
-          <col class="w-24">
+          <col />
+          <col />
+          <col />
+          <col />
+          <col />
+          <col class="w-24" />
         </colgroup>
         <thead class="bg-gray-300">
           <tr class="text-left">
@@ -32,10 +32,10 @@
   </div>
 </template>
 <script setup>
-  defineProps({
-    header: Array,
-    data: Array,
-    id: Array,
-    action: Array
-  })
+defineProps({
+  header: Array,
+  data: Array,
+  id: Array,
+  action: Array
+})
 </script>
