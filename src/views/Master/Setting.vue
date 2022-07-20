@@ -5,9 +5,9 @@
 </template>
 
 <script setup>
-import HeadTitle from '../components/Card/HeadTitle.vue'
+import HeadTitle from '../../components/Card/HeadTitle.vue'
 import Tabs from '../components/Tabs.vue'
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 const title = reactive([
   {
     name: '基础设置',
