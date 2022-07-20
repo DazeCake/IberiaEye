@@ -53,7 +53,7 @@ export const router = createRouter({
           meta: { title: '数据统计' },
         },
         {
-          path: '/device',
+          path: 'device',
           component: () => import('../views/Master/Devices.vue'),
           meta: { title: '设备管理' },
         },
