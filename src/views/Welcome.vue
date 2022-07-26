@@ -28,11 +28,15 @@
         <path fill="currentColor" d="M232,16H193.6L16,185.143V416H232ZM200,384H48V198.857L200,54.1Z"></path>
       </svg>
     </div>
-    <!-- 展示 -->
     <!-- 按钮 -->
     <div class="space-x-3 space-y-9 mt-40">
-      <van-button type="default" class="w-32 shadow-lg" color="#0396ff">登陆</van-button>
-      <van-button type="primary" class="w-32 shadow-lg" color="linear-gradient(to right, #17ead9, #6078ea)">
+      <van-button type="default" class="w-32 shadow-lg" color="#0396ff" to="/user/login">登陆</van-button>
+      <van-button
+        type="primary"
+        class="w-32 shadow-lg"
+        color="linear-gradient(to right, #17ead9, #6078ea)"
+        to="/user/register"
+      >
         注册
       </van-button>
     </div>
