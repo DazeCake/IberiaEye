@@ -19,7 +19,6 @@ import { ImagePreview, Toast } from 'vant'
 import { ref } from 'vue'
 import { getUserLog } from '../../api/api'
 
-
 const list: any = ref([])
 const loading = ref(false)
 const finished = ref(false)
@@ -54,9 +53,9 @@ const onRefresh = () => {
 const showImg = (url: string) => {
   // 检查url是否以jpeg或jpg结尾
   if (url.endsWith('.jpeg') || url.endsWith('.jpg')) {
-    ImagePreview([url])
+    ImagePreview({ images: [url], closeable: true })
   } else {
-    ImagePreview([url + '.jpeg'])
+    ImagePreview({ images: [url + '.jpeg'], closeable: true })
   }
 }
 </script>
