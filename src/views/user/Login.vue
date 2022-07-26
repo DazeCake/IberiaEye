@@ -41,7 +41,7 @@ const login = () => {
       Toast.fail(res.data.msg)
     } else {
       Toast.success('登陆成功')
-      localStorage.setItem('token', res.data.token)
+      localStorage.setItem('token', res.data.data.token)
       router.push('/user/home')
     }
   })

@@ -13,3 +13,9 @@ export const userRegister = (data: AccountInterface, cdk: string) => $http({
     params: { cdk },
     data: data
 })
+
+export const getUserLog = (current: number, size: number) => $http({
+    url: '/showMyLog',
+    method: 'get',
+    params: { current, size }
+})
