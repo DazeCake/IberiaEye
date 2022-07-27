@@ -89,12 +89,12 @@ export interface AccountInterface {
 }
 
 export class AccountImpl implements AccountInterface {
-    id: 0 = 0;
-    name: '' = "";
-    account: '' = "";
-    password: "" = "";
-    server: 0 = 0;
-    taskType: "daily" = "daily";
+    id: number = 0;
+    name: string = "";
+    account: string = "";
+    password: string = "";
+    server: number = 0;
+    taskType: string = "daily";
     config: {
         daily: {
             fight: {
@@ -266,5 +266,20 @@ export class AccountImpl implements AccountInterface {
             },
         };
     expireTime: string = "2000-01-01T00:00:00";
-    delete: 0 = 0;
+    delete: number = 0;
+
+    setAll(account: any) {
+        this.id = account.id;
+        this.name = account.name;
+        this.account = account.account;
+        this.password = account.password;
+        this.server = account.server;
+        this.taskType = account.taskType;
+        this.config = account.config;
+        this.active = account.active;
+        this.expireTime = account.expireTime;
+        this.delete = account.delete;
+        return this;
+    }
+
 }

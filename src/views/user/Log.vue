@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-gray-100 h-screen">
     <van-nav-bar title="日志" />
     <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
       <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">

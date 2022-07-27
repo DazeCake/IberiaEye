@@ -19,3 +19,20 @@ export const getUserLog = (current: number, size: number) => $http({
     method: 'get',
     params: { current, size }
 })
+
+export const useCDK = (cdk: string) => $http({
+    url: '/useCDK',
+    method: 'post',
+    params: { cdk }
+})
+
+export const getUserInfo = () => $http({
+    url: '/showMyAccount',
+    method: 'get'
+})
+
+export const updateUserInfo = (data: AccountInterface) => $http({
+    url: '/updateMyAccount',
+    method: 'post',
+    data
+})
