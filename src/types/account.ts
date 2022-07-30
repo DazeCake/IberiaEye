@@ -319,6 +319,7 @@ export class AccountImpl implements AccountInterface {
         this.taskType = account.taskType;
         this.config = account.config;
         this.active = account.active;
+        this.notice = account.notice;
         this.expireTime = account.expireTime;
         this.delete = account.delete;
         return this;

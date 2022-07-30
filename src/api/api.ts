@@ -41,3 +41,8 @@ export const getUserStatus = () => $http({
     url: '/showMyStatus',
     method: 'get'
 })
+
+export const getWechatQRCode = () => $http({
+    url: '/getWechatQRCode',
+    method: 'get'
+})
