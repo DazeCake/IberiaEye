@@ -48,14 +48,22 @@
                   <van-col span="10"></van-col>
                   <van-col span="4">{{ item.num }}</van-col>
                 </van-row>
+                <template #left>
+                  <van-button square text="置顶" type="primary" size="mini" @click="topTask" />
+                </template>
                 <template #right>
-                  <van-button square text="删除" type="danger" class="delete-button" size="mini" @click="delTask" />
+                  <van-button square text="删除" type="danger" size="mini" @click="delTask" />
                 </template>
               </van-swipe-cell>
             </van-cell>
           </van-list>
         </van-cell-group>
       </van-swipe-cell>
+      <div class="mt-6">
+        <van-cell-group inset>
+          <van-cell :title="status" label="当前状态" />
+        </van-cell-group>
+      </div>
     </div>
     <van-tabbar route>
       <van-tabbar-item to="/user/log" name="log" icon="notes-o">日志</van-tabbar-item>
@@ -95,7 +103,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import { getUserInfo, updateUserInfo } from '../../api/api'
+import { getUserInfo, getUserStatus, updateUserInfo } from '../../api/api'
 import { AccountImpl } from '../../types/account'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -114,12 +122,14 @@ const showSaveTask = ref(false)
 const level = ref('')
 const num = ref(99)
 const task: any = ref('')
+const status = ref('')
 
 const getUser = () => {
   getUserInfo().then((res) => {
     account.setAll(res.data.data)
     expireTime.value = dayjs(account.expireTime, 'YYYY-MM-DD[T]HH:mm:ss')
     getDays()
+    getStatus()
   })
 }
 
@@ -184,6 +194,12 @@ const delTask = () => {
   Toast.success('删除成功,记得保存哦')
 }
 
+const topTask = () => {
+  account.config.daily.fight.splice(account.config.daily.fight.indexOf(task.value), 1)
+  account.config.daily.fight.unshift(task.value)
+  Toast.success('置顶成功,记得保存哦')
+}
+
 const saveTask = () => {
   updateUserInfo(account).then((res) => {
     if (res.data.code == 200) {
@@ -191,6 +207,14 @@ const saveTask = () => {
       showSaveTask.value = false
     } else {
       Toast.fail('保存失败')
+    }
+  })
+}
+
+const getStatus = () => {
+  getUserStatus().then((res) => {
+    if (res.data.code == 200) {
+      status.value = res.data.data.msg
     }
   })
 }

@@ -36,3 +36,8 @@ export const updateUserInfo = (data: AccountInterface) => $http({
     method: 'post',
     data
 })
+
+export const getUserStatus = () => $http({
+    url: '/showMyStatus',
+    method: 'get'
+})

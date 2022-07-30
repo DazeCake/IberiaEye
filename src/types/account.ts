@@ -84,6 +84,20 @@ export interface AccountInterface {
             detail: string[];
         }
     };
+    notice: {
+        wxUID: {
+            text: string,
+            enable: boolean
+        },
+        qq: {
+            text: string,
+            enable: boolean
+        },
+        mail: {
+            text: string,
+            enable: boolean
+        }
+    };
     expireTime: string;
     delete: number
 }
@@ -264,6 +278,34 @@ export class AccountImpl implements AccountInterface {
                 enable: true,
                 detail: [],
             },
+        };
+    notice: {
+        wxUID: {
+            text: string,
+            enable: boolean
+        },
+        qq: {
+            text: string,
+            enable: boolean
+        },
+        mail: {
+            text: string,
+            enable: boolean
+        }
+    } = {
+            wxUID: {
+                text: "",
+                enable: false,
+            },
+
+            qq: {
+                text: "",
+                enable: false,
+            },
+            mail: {
+                text: "",
+                enable: false,
+            }
         };
     expireTime: string = "2000-01-01T00:00:00";
     delete: number = 0;
