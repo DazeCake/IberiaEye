@@ -4,34 +4,27 @@
     <van-nav-bar :title="account.name" />
     <!-- 账号状态 -->
     <div class="mt-6">
-      <van-swipe-cell>
-        <van-cell-group inset>
-          <van-row>
-            <van-col span="8">
-              <van-circle
-                class="m-3"
-                v-model:current-rate="currentRate"
-                v-model:rate="rate"
-                :speed="100"
-                :text="remainingDays"
-                :color="color"
-              />
-            </van-col>
-            <van-col span="16">
-              <div class="m-3 mt-4 space-y-2">
-                <h1>账号：{{ account.account }}</h1>
-                <h1>到期时间：{{ expireTime.format('YYYY年MM月DD日') }}</h1>
-                <h1>服务器：{{ getServer() }}</h1>
-              </div>
-            </van-col>
-          </van-row>
-        </van-cell-group>
-        <template #right class="align-middle">
-          <div class="align-middle">
-            <van-button icon="setting-o" />
-          </div>
-        </template>
-      </van-swipe-cell>
+      <van-cell-group inset>
+        <van-row @click="showAccountUpdatePopup">
+          <van-col span="8">
+            <van-circle
+              class="m-3"
+              v-model:current-rate="currentRate"
+              v-model:rate="rate"
+              :speed="100"
+              :text="remainingDays"
+              :color="color"
+            />
+          </van-col>
+          <van-col span="16">
+            <div class="m-3 mt-4 space-y-2">
+              <h1>账号：{{ account.account }}</h1>
+              <h1>到期时间：{{ expireTime.format('YYYY年MM月DD日') }}</h1>
+              <h1>服务器：{{ getServer() }}</h1>
+            </div>
+          </van-col>
+        </van-row>
+      </van-cell-group>
     </div>
     <div>
       <van-swipe-cell>
@@ -61,7 +54,7 @@
       </van-swipe-cell>
       <div class="mt-6">
         <van-cell-group inset>
-          <van-cell :title="status" label="当前状态" />
+          <van-cell :title="status" label="当前状态" @click="showTaskOperationPopup" />
         </van-cell-group>
       </div>
     </div>
@@ -70,7 +63,27 @@
       <van-tabbar-item to="/user/home" name="home" icon="home-o">主页</van-tabbar-item>
       <van-tabbar-item to="/user/setting" name="setting" icon="setting-o">设置</van-tabbar-item>
     </van-tabbar>
-
+    <van-popup v-model:show="showAccountUpdate" round position="bottom" :style="{ height: '30%' }">
+      <div class="flex flex-col space-y-3 duration-1000 items-center text-center bg-gray-100 h-full py-6">
+        <van-form @submit="updateConfig">
+          <van-cell-group inset>
+            <van-field v-model="accountValue" label="账号" placeholder="请输入游戏账号" />
+            <van-field v-model="passwordValue" label="密码" type="password" placeholder="请输入游戏密码" />
+            <van-radio-group
+              v-model="serverValue"
+              direction="horizontal"
+              class="m-2 flex flex-auto place-content-center"
+            >
+              <van-radio :name="0">官服</van-radio>
+              <van-radio :name="1">B服</van-radio>
+            </van-radio-group>
+          </van-cell-group>
+          <div style="margin: 16px">
+            <van-button round block type="primary" native-type="submit">提交</van-button>
+          </div>
+        </van-form>
+      </div>
+    </van-popup>
     <van-popup v-model:show="showAddTask" round position="bottom" :style="{ height: '30%' }">
       <div class="flex flex-col space-y-3 duration-1000 items-center text-center bg-gray-100 h-full py-6">
         <van-form @submit="addTask">
@@ -98,12 +111,25 @@
         </van-form>
       </div>
     </van-popup>
+    <van-popup v-model:show="showTaskOperation" round position="bottom" :style="{ height: '30%' }">
+      <div class="flex flex-col space-y-6 duration-1000 items-center text-center bg-gray-100 h-full py-12">
+        <van-button icon="back-top" type="primary" round @click="insert">插队</van-button>
+        <van-button icon="play" type="primary" round @click="start">立即作战</van-button>
+      </div>
+    </van-popup>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import { getUserInfo, getUserStatus, updateUserInfo } from '../../api/api'
+import {
+  getUserInfo,
+  getUserStatus,
+  insertQueue,
+  startNow,
+  updateAccountAndPassword,
+  updateUserInfo,
+} from '../../api/api'
 import { AccountImpl } from '../../types/account'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -117,12 +143,17 @@ const rate = ref(100)
 const expireTime = ref(dayjs())
 const remainingDays = ref('')
 const color = ref('')
+const showAccountUpdate = ref(false)
 const showAddTask = ref(false)
 const showSaveTask = ref(false)
+const showTaskOperation = ref(false)
 const level = ref('')
 const num = ref(99)
 const task: any = ref('')
 const status = ref('')
+const accountValue = ref('')
+const passwordValue = ref('')
+const serverValue = ref(0)
 
 const getUser = () => {
   getUserInfo().then((res) => {
@@ -164,12 +195,31 @@ const getServer = () => {
   }
 }
 
+const showAccountUpdatePopup = () => {
+  showAccountUpdate.value = true
+}
+
 const showAddTaskPopup = () => {
   showAddTask.value = true
 }
 
 const showSaveTaskPopup = () => {
   showSaveTask.value = true
+}
+
+const updateConfig = () => {
+  updateAccountAndPassword({
+    account: accountValue.value,
+    password: passwordValue.value,
+    server: serverValue.value,
+  }).then((res) => {
+    if (res.data.code == 200) {
+      Toast.success('修改成功')
+      getUser()
+    } else {
+      Toast.fail(res.data.msg)
+    }
+  })
 }
 
 const selectTask = (item: any) => {
@@ -213,8 +263,37 @@ const saveTask = () => {
 
 const getStatus = () => {
   getUserStatus().then((res) => {
+    console.log(res.data)
+
     if (res.data.code == 200) {
       status.value = res.data.data.msg
+    }
+  })
+}
+
+const showTaskOperationPopup = () => {
+  showTaskOperation.value = true
+}
+
+const insert = () => {
+  insertQueue().then((res) => {
+    if (res.data.code == 200) {
+      Toast.success('插队成功')
+      showTaskOperation.value = false
+    } else {
+      Toast.fail('插队失败')
+    }
+  })
+  showTaskOperation.value = false
+}
+
+const start = () => {
+  startNow().then((res) => {
+    if (res.data.code == 200) {
+      Toast.success(res.data.msg)
+      showTaskOperation.value = false
+    } else {
+      Toast.fail(res.data.msg)
     }
   })
 }

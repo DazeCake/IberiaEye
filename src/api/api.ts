@@ -47,7 +47,7 @@ export const getWechatQRCode = () => $http({
     method: 'get'
 })
 
-export const updateAccountAndPassword = (data: { username: string, password: string, server: number }) => $http({
+export const updateAccountAndPassword = (data: { account: string, password: string, server: number }) => $http({
     url: '/updateAccountAndPassword',
     method: 'post',
     params: data
