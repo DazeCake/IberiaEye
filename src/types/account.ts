@@ -98,6 +98,10 @@ export interface AccountInterface {
             enable: boolean
         }
     };
+    freeze: number;
+    refresh: number;
+    blimitDevice: [];
+    blimit: number;
     expireTime: string;
     delete: number
 }
@@ -307,6 +311,10 @@ export class AccountImpl implements AccountInterface {
                 enable: false,
             }
         };
+    freeze: number = 0;
+    refresh: number = 0;
+    blimitDevice: [] = [];
+    blimit: number = 0;
     expireTime: string = "2000-01-01T00:00:00";
     delete: number = 0;
 
@@ -320,6 +328,9 @@ export class AccountImpl implements AccountInterface {
         this.config = account.config;
         this.active = account.active;
         this.notice = account.notice;
+        this.freeze = account.freeze;
+        this.refresh = account.refresh;
+        this.blimitDevice = account.blimitDevice;
         this.expireTime = account.expireTime;
         this.delete = account.delete;
         return this;

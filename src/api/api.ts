@@ -46,3 +46,34 @@ export const getWechatQRCode = () => $http({
     url: '/getWechatQRCode',
     method: 'get'
 })
+
+export const updateAccountAndPassword = (data: { username: string, password: string, server: number }) => $http({
+    url: '/updateAccountAndPassword',
+    method: 'post',
+    params: data
+})
+
+export const freezeMyAccount = () => $http({
+    url: '/freezeMyAccount',
+    method: 'post'
+})
+
+export const unfreezeMyAccount = () => $http({
+    url: '/unfreezeMyAccount',
+    method: 'post'
+})
+
+export const startNow = () => $http({
+    url: '/startNow',
+    method: 'post'
+})
+
+export const insertQueue = () => $http({
+    url: '/insertQueue',
+    method: 'post'
+})
+
+export const getRefresh = () => $http({
+    url: '/getRefresh',
+    method: 'get'
+})

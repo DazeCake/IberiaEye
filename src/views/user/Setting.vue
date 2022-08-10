@@ -7,6 +7,15 @@
         <van-cell title="CDK激活" is-link @click="openCDKPopup" />
       </van-cell-group>
     </div>
+    <div class="mt-6">
+      <van-cell-group inset>
+        <van-cell title="冻结账号" label="手动停止账号托管" is-link @click="freezeSwitch">
+          <template #right-icon>
+            <van-switch size="24" v-model="freeze" />
+          </template>
+        </van-cell>
+      </van-cell-group>
+    </div>
     <van-popup v-model:show="showNotice" closeable round position="bottom" :style="{ height: '30%' }">
       <div class="bg-gray-100 h-full py-12">
         <van-cell-group inset>
@@ -63,8 +72,8 @@
 
 <script setup lang="ts">
 import { Dialog, Toast } from 'vant'
-import { reactive, ref } from 'vue'
-import { getUserInfo, getWechatQRCode, updateUserInfo, useCDK } from '../../api/api'
+import { onMounted, reactive, ref } from 'vue'
+import { freezeMyAccount, getUserInfo, getWechatQRCode, unfreezeMyAccount, updateUserInfo, useCDK } from '../../api/api'
 import { AccountImpl } from '../../types/account'
 
 const VanDialog = Dialog.Component
@@ -76,12 +85,10 @@ const showWXQR = ref(false)
 const showMailSet = ref(false)
 const imgUrl = ref('')
 const cdk = ref('')
+const freeze = ref(false)
 
 const openNoticePopup = () => {
-  getUserInfo().then((res) => {
-    account.setAll(res.data.data)
-    showNotice.value = true
-  })
+  showNotice.value = true
 }
 
 const refresh = () => {
@@ -180,6 +187,35 @@ const updateUser = () => {
     }
   })
 }
+
+const freezeSwitch = () => {
+  if (freeze.value) {
+    freezeMyAccount().then((res) => {
+      if (res.data.code == 200) {
+        Toast.success('冻结成功')
+      } else {
+        Toast.fail(res.data.msg)
+      }
+    })
+  } else {
+    unfreezeMyAccount().then((res) => {
+      if (res.data.code == 200) {
+        Toast.success('解冻成功')
+      } else {
+        Toast.fail(res.data.msg)
+      }
+    })
+  }
+}
+
+onMounted(() => {
+  getUserInfo().then((res) => {
+    account.setAll(res.data.data)
+    if (account.freeze == 1) {
+      freeze.value = true
+    }
+  })
+})
 </script>
 
 <style scoped></style>
