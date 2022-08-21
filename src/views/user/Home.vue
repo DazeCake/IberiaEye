@@ -113,8 +113,9 @@
     </van-popup>
     <van-popup v-model:show="showTaskOperation" round position="bottom" :style="{ height: '30%' }">
       <div class="flex flex-col space-y-6 duration-1000 items-center text-center bg-gray-100 h-full py-12">
-        <van-button icon="back-top" type="primary" round @click="insert">插队</van-button>
+        <van-button icon="back-top" type="primary" round @click="insert">一键插队</van-button>
         <van-button icon="play" type="primary" round @click="start">立即作战</van-button>
+        <van-button icon="stop" type="primary" round @click="halt">一键下线</van-button>
       </div>
     </van-popup>
   </div>
@@ -125,6 +126,7 @@ import { onMounted, reactive, ref } from 'vue'
 import {
   getUserInfo,
   getUserStatus,
+  haltTask,
   insertQueue,
   startNow,
   updateAccountAndPassword,
@@ -261,10 +263,19 @@ const saveTask = () => {
   })
 }
 
+const halt = () => {
+  haltTask().then((res) => {
+    if (res.data.code == 200) {
+      Toast.success('强制下线已发送')
+      getStatus()
+    } else {
+      Toast.fail('强制下线失败')
+    }
+  })
+}
+
 const getStatus = () => {
   getUserStatus().then((res) => {
-    console.log(res.data)
-
     if (res.data.code == 200) {
       status.value = res.data.data.msg
     }

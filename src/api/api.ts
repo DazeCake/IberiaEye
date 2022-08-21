@@ -77,3 +77,8 @@ export const getRefresh = () => $http({
     url: '/getRefresh',
     method: 'get'
 })
+
+export const haltTask = () => $http({
+    url: '/forceHalt',
+    method: 'post'
+})
